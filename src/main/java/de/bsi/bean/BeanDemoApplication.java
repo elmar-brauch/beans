@@ -9,11 +9,11 @@ import de.bsi.bean.service.ItemService;
 @SpringBootApplication
 public class BeanDemoApplication {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(BeanDemoApplication.class, args);
 		var itemService = context.getBean(ItemService.class);
-		itemService.createAndPersistItem("Test");
-		Thread.sleep(10000);
+		var item = itemService.createAndPersistItem("Test");
+		System.out.println("Item created with id: " + item.getId());
 	}
 
 }
