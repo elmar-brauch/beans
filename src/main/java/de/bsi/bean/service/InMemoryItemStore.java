@@ -1,10 +1,8 @@
 package de.bsi.bean.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.annotation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +13,12 @@ import model.Item;
 @Service
 public class InMemoryItemStore implements ItemPersistenceService {
 
-	@Autowired private IdGenerator idGenerator;
+	@Autowired IdGenerator idGenerator;
 	
 	private Map<String, Item> store;
 	
 	@PostConstruct
-	private void initStore() {
+	void initStore() {
 		store = new HashMap<>();
 	}
 	
@@ -39,11 +37,14 @@ public class InMemoryItemStore implements ItemPersistenceService {
 
 	@Override
 	public Item findItem(String id) {
+		if (id == null)
+			return null;
 		return store.get(id);
 	}
 
 	@Override
 	public void deleteItem(String id) {
-		store.remove(id);
+		if (id == null || store.remove(id) == null)
+			throw new NoSuchElementException("Element with given id not found in store.");
 	}
 }
