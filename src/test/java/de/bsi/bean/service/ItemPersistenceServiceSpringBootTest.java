@@ -23,9 +23,11 @@ class ItemPersistenceServiceSpringBootTest {
 	// but here is a demo of parameterized tests.
 	
 	static Stream<Item> createTestData() {
-		Item testData = new Item();
-		testData.setName("Book");
-		return Stream.of(testData);
+		Item testData1 = new Item();
+		testData1.setName("Book");
+		Item testData2 = new Item();
+		testData2.setName("Ball");
+		return Stream.of(testData1, testData2);
 	}
 	
 	@ParameterizedTest
@@ -33,7 +35,7 @@ class ItemPersistenceServiceSpringBootTest {
 	void saveAndFindItemTest(Item item) {
 		String id = itemStore.saveItem(item);
 		Item searchedItem = itemStore.findItem(id);
-		assertEquals("Book", searchedItem.getName());
+		assertEquals(item.getName(), searchedItem.getName());
 	}
 	
 	@ParameterizedTest
