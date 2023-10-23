@@ -2,7 +2,6 @@ package de.bsi.bean.service;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -13,14 +12,14 @@ public class ItemServiceImpl implements ItemService {
 	
 	private ItemPersistenceService persistenceService;
 	
-	@Autowired
+	// Spring injects ItemPersistenceService automatically.
 	public ItemServiceImpl(ItemPersistenceService persistenceService) {
 		this.persistenceService = persistenceService;
 	}
 
 	@Override
 	public Item createAndPersistItem(String name) {
-		if (StringUtils.isEmpty(name))
+		if (!StringUtils.hasText(name))
 			throw new IllegalArgumentException();
 		var item = new Item();
 		item.setName(name);
@@ -39,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public Item findItemById(String id) {
-		if (StringUtils.isEmpty(id))
+		if (!StringUtils.hasText(id))
 			throw new IllegalArgumentException();
 		return persistenceService.findItem(id);
 	}

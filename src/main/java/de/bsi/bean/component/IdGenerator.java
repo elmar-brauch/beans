@@ -2,10 +2,10 @@ package de.bsi.bean.component;
 
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import jakarta.annotation.PostConstruct;
 
 @Component
 @Scope("prototype")

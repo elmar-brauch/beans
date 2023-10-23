@@ -13,14 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import de.bsi.bean.component.IdGenerator;
 import model.Item;
 
-//SpringBootTest has simpler setup, because itemStore instantiation is done by Spring.
 @SpringBootTest(classes = {InMemoryItemStore.class, IdGenerator.class})
 class ItemPersistenceServiceSpringBootTest {
 	
 	@Autowired ItemPersistenceService itemStore;
-	
-	// All tests and following code could be exactly the same as in JunitTest.java,
-	// but here is a demo of parameterized tests.
 	
 	static Stream<Item> createTestData() {
 		Item testData1 = new Item();

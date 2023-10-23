@@ -2,12 +2,12 @@ package de.bsi.bean.service;
 
 import java.util.*;
 
-import javax.annotation.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.bsi.bean.component.IdGenerator;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import model.Item;
 
 @Service

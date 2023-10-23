@@ -1,23 +1,30 @@
 package de.bsi.bean.schedule;
 
-import java.text.MessageFormat;
-import java.util.logging.*;
+import static de.bsi.bean.schedule.ScheduledJobs.END_MSG;
+import static de.bsi.bean.schedule.ScheduledJobs.SCHEDULED_MSG;
+import static de.bsi.bean.schedule.ScheduledJobs.START_MSG;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.*;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import de.bsi.bean.component.IdGenerator;
-
-import static de.bsi.bean.schedule.ScheduledJobs.*;
 
 @EnableAsync
 @EnableScheduling
 @Configuration
 public class AsyncScheduledJobs {
 	
-	Logger log = Logger.getLogger(AsyncScheduledJobs.class.getName());
-	@Autowired IdGenerator idGenerator;
+	private Logger log = Logger.getLogger(AsyncScheduledJobs.class.getName());
+	
+	@Autowired 
+	private IdGenerator idGenerator;
 
 	@Scheduled(cron = "${scheduled.special_seconds}")
 	@Async
@@ -29,9 +36,9 @@ public class AsyncScheduledJobs {
 	@Async
 	void startJobOften() throws InterruptedException {
 		String jobId = idGenerator.generateId();
-		log.log(Level.INFO, MessageFormat.format(START_MSG, "FIXED-RATE", jobId));
+		log.log(Level.INFO, START_MSG, new String[]{"FIXED-RATE", jobId});
 		Thread.sleep(7500);
-		log.log(Level.INFO, MessageFormat.format(END_MSG, "FIXED-RATE", jobId));
+		log.log(Level.INFO, END_MSG, new String[]{"FIXED-RATE", jobId});
 	}
 	
 }

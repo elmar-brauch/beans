@@ -49,7 +49,7 @@ class InMemoryItemStoreJunitTest {
 		try {
 			itemStore.deleteItem("123");
 		} catch(NoSuchElementException ex) {
-			// Better solution to test Exceptions is shown in SpringTest.java.
+			// Better solution to test Exceptions is shown in ItemPersistenceServiceSpringBootTest.java.
 			return;
 		}
 		fail("NoSuchElementException expected");
