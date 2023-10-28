@@ -16,9 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import de.bsi.bean.component.IdGenerator;
 
-@EnableAsync
-@EnableScheduling
-@Configuration
+// TODO Set annotations to enable scheduling executed in async threads.
 public class AsyncScheduledJobs {
 	
 	private Logger log = Logger.getLogger(AsyncScheduledJobs.class.getName());
@@ -26,14 +24,12 @@ public class AsyncScheduledJobs {
 	@Autowired 
 	private IdGenerator idGenerator;
 
-	@Scheduled(cron = "${scheduled.special_seconds}")
-	@Async
+	// TODO async execution with cron expression in application.properties scheduled.special_seconds
 	void logAtSpecialSeconds() {
 		log.log(Level.INFO, SCHEDULED_MSG, "at special seconds");
 	}
 	
-	@Scheduled(fixedRateString = "${scheduled.fixed-rate}", initialDelayString = "${scheduled.initial-delay}")
-	@Async
+	// TODO async execution with fixed period between invocations and initial delay. Both read in application.properties
 	void startJobOften() throws InterruptedException {
 		String jobId = idGenerator.generateId();
 		log.log(Level.INFO, START_MSG, new String[]{"FIXED-RATE", jobId});
